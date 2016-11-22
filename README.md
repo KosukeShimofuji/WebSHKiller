@@ -7,15 +7,18 @@
 WebShellが存在する可能性があるホストで実行されるクライアントプログラムであり、以下の手順に基づき処理を行う。
 
  * Indexファイルの作成
+ * Indexファイルを考慮しながらscan対象を作成
 
-### Indexファイル
+### database schema on client side
 
-Indexファイルとはwebshdd-cliが対象とするスキャン対象ファイル群のstat情報を保持するものである。
-Indexファイルは前回のスキャンから変更のないスキャン対象ファイル群を減らすために使用される。
+ * index table
+
+Indexテーブルはwebshdd-cliが対象とするスキャン対象ファイル群のstat情報を保持するものである。
+Indexテーブル前回のスキャンから変更のないスキャン対象ファイル群を減らすために使用される。
 
 | 項目 | 意味 | 
 |------|------|
-|File  | filename |
+|File  | filepath |
 |Size  | filesize | 
 |Perm  | permission | 
 |Uid   | user id |
@@ -24,6 +27,16 @@ Indexファイルは前回のスキャンから変更のないスキャン対象
 |Ctime | createtion time|
 |Mtime | modification time |
 |sha256 | file hash |
+|_update| last update |
+
+ * report table
+
+| 項目 | 意味 | 
+|------|------|
+|File  | filepath |
+|date | scan開始日時 |
+|processing time|scanに要した時間|
+|result| スキャン結果 |
 
 # 参考文献
 
