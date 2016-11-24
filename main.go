@@ -150,6 +150,14 @@ func add_openstack_keypair(client *gophercloud.ServiceClient, name string) {
 	fmt.Printf("%# v\n", pretty.Formatter(kp))
 }
 
+func del_openstack_keypair(client *gophercloud.ServiceClient, name string) {
+	err := keypairs.Delete(client, name).ExtractErr()
+
+	if err != nil {
+		log.Fatal(err)
+	}
+}
+
 func main() {
 	debug("Check identity information")
 	if OPENSTACK_IDENTITY_URI == "" ||
@@ -170,7 +178,7 @@ func main() {
 	}
 	provider, err := openstack.AuthenticatedClient(openstack_opts)
 	if err != nil {
-		fmt.Printf("OpenStack authentication error : %s", err.Error())
+		log.Fatal(err)
 	}
 
 	debug("Carete compute node client")
@@ -178,7 +186,7 @@ func main() {
 		Region: OPENSTACK_REGION,
 	})
 	if err != nil {
-		fmt.Printf("Create OpenStack instance error : %s", err.Error())
+		log.Fatal(err)
 	}
 
 	debug("Get a list of flavors")
@@ -193,7 +201,9 @@ func main() {
 	debug("Get a list of servers")
 	view_openstack_servers(compute_client)
 
-	debug("Create a keypair")
+	debug("Add a keypair")
 	add_openstack_keypair(compute_client, "some_name")
 
+	debug("Del a keypair")
+	del_openstack_keypair(compute_client, "some_name")
 }
