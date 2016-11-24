@@ -4,7 +4,7 @@
 
 ## 処理手順
 
- * webshdd-cliはwebshdd-coreが存在確認を行う
+ * webshdd-cliはwebshdd-coreが存在するか否かの確認を行う
    * webshdd-cliはwebshdd-coreが存在しない場合、webshdd-coreを作成する
 
 ## webshdd-cli
