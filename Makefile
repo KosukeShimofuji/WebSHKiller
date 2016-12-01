@@ -16,6 +16,7 @@ setup:
 	go get golang.org/x/crypto/ssh
 	go get github.com/fatih/color
 	go get github.com/kr/pretty
+	go get github.com/mitchellh/cli
 
 # テストを実行する
 ## Run tests
