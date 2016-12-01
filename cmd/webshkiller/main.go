@@ -6,7 +6,6 @@ import (
 	_ "github.com/KosukeShimofuji/WebSHKiller"
 	"github.com/KosukeShimofuji/WebSHKiller/logger"
 	"github.com/mitchellh/cli"
-	"log"
 	"os"
 )
 
@@ -50,7 +49,7 @@ func (c *ControlInitCommand) Run(args []string) int {
 	flags.BoolVar(&debug, "debug", false, "Run as DEBUG mode")
 
 	if err := flags.Parse(args); err != nil {
-		log.Fatal(err)
+		logger.Crit(err.Error())
 	}
 
 	DEBUG_FLAG = debug
@@ -62,8 +61,6 @@ func (c *ControlInitCommand) Run(args []string) int {
 
 // entry point
 func main() {
-	// settings log package for output line number
-	log.SetFlags(log.Ldate | log.Ltime | log.Lshortfile)
 	// settings sub command
 	c := cli.NewCLI("webshkiller", "0.0.1")
 	c.Args = os.Args[1:]
