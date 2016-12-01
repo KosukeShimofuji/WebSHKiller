@@ -189,6 +189,9 @@ func main() {
 		log.Fatal(err)
 	}
 
+	debug("Get a list of servers")
+	view_openstack_servers(compute_client)
+
 	debug("Get a list of flavors")
 	view_openstack_flavors(compute_client)
 
@@ -197,9 +200,6 @@ func main() {
 
 	debug("Get a list of keypairs")
 	view_openstack_keypairs(compute_client)
-
-	debug("Get a list of servers")
-	view_openstack_servers(compute_client)
 
 	debug("Add a keypair")
 	add_openstack_keypair(compute_client, "some_name")
