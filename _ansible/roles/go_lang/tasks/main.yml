@@ -30,4 +30,9 @@
     state=present
     line='export PATH=$PATH:$GOROOT/bin:$GOPATH/bin'
 
+ - name: install gotags
+   command: su - {{ login_user }} -c "go get github.com/jstemmer/gotags"
+
+ - name: install guru
+   command: su - {{ login_user }} -c "go get golang.org/x/tools/cmd/guru"
 
