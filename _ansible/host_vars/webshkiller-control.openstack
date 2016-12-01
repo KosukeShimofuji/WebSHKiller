@@ -1,0 +1,4 @@
+---
+hostname: 'webshkiller-control.openstack'
+ansible_user: root
+login_user: webshkiller

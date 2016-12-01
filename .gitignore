@@ -1,2 +1,6 @@
 vendor/
 .env
+_ansible/site.retry
+_ansible/login_user
+_ansible/login_user.pub
+_ansible/*.pem

@@ -1,0 +1,35 @@
+---
+ - name: download go language binary archive
+   command: su - {{ login_user }} -c "wget https://storage.googleapis.com/golang/go1.7.1.linux-amd64.tar.gz -O /tmp/go1.7.1.linux-amd64.tar.gz"
+   args:
+    creates: /tmp/go1.7.1.linux-amd64.tar.gz  
+
+ - name: extract go language binary archive
+   command: su - {{ login_user }} -c "tar zxvf /tmp/go1.7.1.linux-amd64.tar.gz -C /home/{{login_user}}/local/"
+   args:
+    creates: /home/{{login_user}}/local/go/VERSION 
+
+ - name: create go root directory
+   command: su - {{ login_user }} -c "mkdir /home/{{login_user}}/go"
+   args:
+    creates: /home/{{login_user}}/go/
+
+ - name: setting go to .bashrc
+   lineinfile:
+    dest='/home/{{ login_user }}/.bashrc'
+    state=present
+    line='export GOROOT=$HOME/local/go'
+
+ - name: setting go to .bashrc
+   lineinfile:
+    dest='/home/{{ login_user }}/.bashrc'
+    state=present
+    line='export GOPATH=$HOME/go'
+
+ - name: setting go to .bashrc
+   lineinfile:
+    dest='/home/{{ login_user }}/.bashrc'
+    state=present
+    line='export PATH=$PATH:$GOROOT/bin:$GOPATH/bin'
+
+

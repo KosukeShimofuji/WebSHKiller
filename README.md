@@ -1,10 +1,14 @@
 # WebSHKiller - Break through obfusucation and kill webshell
 
+WebSHkillerはWebShellを検知するためのソフトウェアです。
+WebSHkillerの特徴は動的解析を行うことによって難読化を施したwebshellを検知することができる点です。
+動的解析はOpenStack上に作成されたdocker host(Jail)のdockerコンテナ上で実行され、解析が終わればdocker host(jail)ごと削除されるので、解析環境がmalwareに感染したとしても解析対象のホストには影響を与えません。
+
 ## 概要図
 
 ```
 +--------------------------+      +--------------------------+     +--------------------------+     
-| CLIENT                   |      | CLIENT                   |     | CLIENT                   |
+| Client                   |      | Client                   |     | Client                   |
 | +----------------------+ |      | +----------------------+ |     | +----------------------+ |
 | | OpenStack creds info | |      | | OpenStack creds info | |     | | OpenStack creds info | |
 | +----------------------+ |      | +----------------------+ |     | +----------------------+ |
@@ -13,7 +17,7 @@
              +----------------------------------+--------------------------------+
                                                 |              
                            +--------------------|----------------+
-                           | CONTROL            v                |
+                           | Control            v                |
                            |            +------------+           |
                            |            | RestFulAPI |           |
                            |            +------------+           |
@@ -25,7 +29,7 @@
                             +----------------+-----------------+
                             |                |                 |
                    +--------|----------------|-----------------|----------+
-                   | JAIL   |                |                 |          |
+                   | Jail   |                |                 |          |
                    | +-------------+   +-------------+   +-------------+  |
                    | | SANDBOX     |   | SANDBOX     |   | SANDBOX     |  |
                    | | +---------+ |   | +---------+ |   | +---------+ |  |
@@ -39,9 +43,41 @@
 
 ## 使い方
 
-###  CONTROLサーバの作成
+###  Controlサーバの作成
 
+Controlサーバは動的解析処理のセッション管理、Jail環境の構築、動的解析処理の効率化のためのキャッシングなどを担います。
+ControlサーバをOpenStack上に作成します。私はOpenStackProviderはConohaを利用しています。
 
+ * OpenStackProviderにComputeNodeをデプロイする
+
+ansibleでデプロイを行いますので、事前にansibleをインストールしておいてください。
+
+```
+$ sudo apt-get install -y libbz2-dev zlib1g-dev libssl-dev libreadline-dev libsqlite3-dev
+$ git clone https://github.com/yyuu/pyenv.git $HOME/.pyenv
+$ git clone https://github.com/yyuu/pyenv-virtualenv.git $HOME/.pyenv/plugins/pyenv-virtualenv
+$ echo 'export PATH="$HOME/.pyenv/bin:$PATH"' >> $HOME/.bashrc
+$ echo 'eval "$(pyenv pyenv init -)"' >>  $HOME/.bashrc
+$ echo 'eval "$(pyenv virtualenv-init -)"' >>  $HOME/.bashrc
+$ source $HOME/.bashrc
+$ pyenv install 2.7.11
+$ pyenv global 2.7.11
+$ pip install --upgrade pip
+$ pip install ansible
+```
+
+compute nodeのdistroはdebian、architectureはx86/64で作成してください。
+
+```
+$ ssh-keygen -t rsa -C webshkiller -f ./login_user
+$ ansible-playbook -i inventory site.yml --private-key=./webshkiller.pem
+```
+
+sshでログインします。
+
+```
+ssh webshkiller@webshkiller-control.openstack -i login_user
+```
 
 ## 処理手順
 
