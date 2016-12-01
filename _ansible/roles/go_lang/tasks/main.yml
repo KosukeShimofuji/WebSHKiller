@@ -10,9 +10,7 @@
     creates: /home/{{login_user}}/local/go/VERSION 
 
  - name: create go root directory
-   command: su - {{ login_user }} -c "mkdir /home/{{login_user}}/go"
-   args:
-    creates: /home/{{login_user}}/go/
+   command: su - {{ login_user }} -c "mkdir -p /home/{{login_user}}/go/{bin,pkg,src}"
 
  - name: setting go to .bashrc
    lineinfile:
