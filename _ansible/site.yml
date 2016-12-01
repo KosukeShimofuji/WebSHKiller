@@ -6,4 +6,5 @@
     - common
     - login_user
     - go_lang
+    - postgresql
 

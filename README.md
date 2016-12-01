@@ -41,7 +41,7 @@ WebSHkillerの特徴は動的解析を行うことによって難読化を施し
                    +------------------------------------------------------+
 ```
 
-## 使い方
+## 初期設定
 
 ###  Controlサーバの作成
 
@@ -69,6 +69,7 @@ $ pip install ansible
 compute nodeのdistroはdebian、architectureはx86/64で作成してください。
 
 ```
+$ sudo -c "echo '163.44.172.244 webshkiller-control.openstack' >> /etc/hosts"
 $ ssh-keygen -t rsa -C webshkiller -f ./login_user
 $ ansible-playbook -i inventory site.yml --private-key=./webshkiller.pem
 ```

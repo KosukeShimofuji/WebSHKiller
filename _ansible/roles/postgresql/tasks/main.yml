@@ -1,0 +1,30 @@
+---
+ - name: install postgresql
+   apt: name={{ item }} state=present
+   with_items:
+      - postgresql
+      - python-psycopg2
+      - libpq-dev
+
+ - name: startup postgresql
+   service: name=postgresql state=started enabled=yes
+
+ - name: create database on postgresql
+   postgresql_db:
+      name: "{{dbname}}"
+      encoding: "UTF-8"
+      login_user: postgres
+   sudo_user: postgres
+   sudo: yes
+
+ - name: create user on postgresql
+   postgresql_user:
+      db: "{{dbname}}"
+      name: "{{dbuser}}"
+      password: "{{dbpass}}"
+      priv: ALL
+      state: present
+      login_user: postgres
+   sudo_user: postgres
+   sudo: yes
+
