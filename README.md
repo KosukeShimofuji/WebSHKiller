@@ -80,6 +80,14 @@ sshでログインします。
 ssh webshkiller@webshkiller-control.openstack -i login_user
 ```
 
+## Restful API
+
+WebShKillerはControlサーバ上でAPIサーバとして動作することができます。
+
+```
+$ webshkiller api start
+```
+
 ## 処理手順
 
  * webshdd-cliはwebshdd-coreが存在するか否かの確認を行う
