@@ -5,7 +5,8 @@ info:
   description: Connect WebShKiller client, control and jail
   version: "1.0.0"
 # the domain of the service
-host: wsk-control.openstack
+# host: wsk-control.openstack
+host: 163.44.167.138
 # array of all schemes that your API supports
 schemes:
   - https
