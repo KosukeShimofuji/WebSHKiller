@@ -61,13 +61,13 @@ paths:
           description: Unexpected error
           schema:
             $ref: '#/definitions/Error'
-  /users/{user_id}:                 
+  /users/{id}:                 
     patch:
       summary: modify user information
       description: |
           modify user infomation
       parameters:
-        - name: user_id
+        - name: id
           in: path
           description: user_id(number)
           required: true
@@ -100,7 +100,7 @@ paths:
       description: |
           delete user
       parameters:
-        - name: user_id
+        - name: id
           in: path
           description: user_id(number)
           required: true
@@ -108,12 +108,8 @@ paths:
       tags:
         - User
       responses:
-        200:
-          description: An array of users
-          schema:
-            type: array
-            items:
-              $ref: '#/definitions/User'
+        204:
+          description: Deleted
         default:
           description: Unexpected error
           schema:
