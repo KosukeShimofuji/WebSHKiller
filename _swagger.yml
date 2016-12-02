@@ -68,7 +68,7 @@ paths:
           modify user infomation
       parameters:
         - name: user_id
-          in: query
+          in: path
           description: user_id(number)
           required: true
           type: number
@@ -101,7 +101,7 @@ paths:
           delete user
       parameters:
         - name: user_id
-          in: query
+          in: path
           description: user_id(number)
           required: true
           type: number
